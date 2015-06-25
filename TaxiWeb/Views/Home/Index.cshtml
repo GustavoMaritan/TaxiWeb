@@ -1,0 +1,76 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>ASP.NET</h1>
+    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Getting started</h2>
+        <p>
+            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
+            enables a clean separation of concerns and gives you full control over markup
+            for enjoyable, agile development.
+        </p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Get more libraries</h2>
+        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Web Hosting</h2>
+        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    </div>
+
+    <button type="button" onclick="Enviar()">Enviar</button>
+    <br />
+    <br />
+    <button type="button" onclick="Buscar()">Buscar</button>
+    <br />
+    <br />
+    <button type="button" onclick="BuscarUsua()">Buscar USua</button>
+</div>
+
+<script>
+    var caminhoApiTaxi = "http://" + window.location.hostname + ":17463/api/Taxi";
+    var caminhoApiUsuario = "http://" + window.location.hostname + ":17463/api/Usuario";
+
+    function Enviar() {
+        var model = {
+            Login: "Gustavo",
+            Senha: "123456",
+            Cnpj: "131123132123",
+            RazaoSocial: "Coperativa Social",
+            Pago: true,
+            QtdeTelefones: 5,
+            Descricao: "Coper Taxi",
+            Telefones: [
+                { Ddd: 17, Numero: 1111111 },
+                { Ddd: 17, Numero: 2222222 },
+                { Ddd: 17, Numero: 3333333 },
+                { Ddd: 17, Numero: 4444444 }
+            ]
+        };
+        $.post(caminhoApiUsuario, model);
+    }
+
+    function Buscar() {
+        $.get(caminhoApiTaxi).success(function (data) {
+            console.log(data);
+        });
+    }
+
+    function BuscarUsua() {
+        $.get(caminhoApiUsuario, { login: "Gustavo", senha: "123456" }).success(function (data) {
+            console.log(data);
+        });
+    }
+
+</script>
